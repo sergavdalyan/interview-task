@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,17 +32,22 @@ public class NumberUtilTest {
 
     @ParameterizedTest
     @MethodSource("dataProvider")
-    public void isNumbersDivisibleTest(int start, int end, String expected) {
-        underTest.isNumbersDivisible(start, end);
+    public void isNumbersDivisibleTest(int start, int end, Map<Integer, String> map,
+        String expected) {
+        underTest.isNumbersDivisible(start, end, map);
 
         assertEquals(expected, outContent.toString());
     }
 
     private static Stream<Arguments> dataProvider() {
+        final LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+        map.put(3, "Fizz");
+        map.put(5, "Buzz");
+
         return Stream.of(
-            Arguments.of(1, 100, RESULT_FROM_1_TO_100),
-            Arguments.of(1, 3, RESULT_FROM_1_TO_3),
-            Arguments.of(4, 5, RESULT_FROM_4_TO_5)
+            Arguments.of(1, 100, map, RESULT_FROM_1_TO_100),
+            Arguments.of(1, 3, map, RESULT_FROM_1_TO_3),
+            Arguments.of(4, 5, map, RESULT_FROM_4_TO_5)
         );
     }
 
@@ -65,7 +72,8 @@ public class NumberUtilTest {
         + "Fizz\n"
         + "13\n"
         + "14\n"
-        + "FizzBuzz\n"
+        + "Fizz\n"
+        + "Buzz\n"
         + "16\n"
         + "17\n"
         + "Fizz\n"
@@ -80,7 +88,8 @@ public class NumberUtilTest {
         + "Fizz\n"
         + "28\n"
         + "29\n"
-        + "FizzBuzz\n"
+        + "Fizz\n"
+        + "Buzz\n"
         + "31\n"
         + "32\n"
         + "Fizz\n"
@@ -95,7 +104,8 @@ public class NumberUtilTest {
         + "Fizz\n"
         + "43\n"
         + "44\n"
-        + "FizzBuzz\n"
+        + "Fizz\n"
+        + "Buzz\n"
         + "46\n"
         + "47\n"
         + "Fizz\n"
@@ -110,7 +120,8 @@ public class NumberUtilTest {
         + "Fizz\n"
         + "58\n"
         + "59\n"
-        + "FizzBuzz\n"
+        + "Fizz\n"
+        + "Buzz\n"
         + "61\n"
         + "62\n"
         + "Fizz\n"
@@ -125,7 +136,8 @@ public class NumberUtilTest {
         + "Fizz\n"
         + "73\n"
         + "74\n"
-        + "FizzBuzz\n"
+        + "Fizz\n"
+        + "Buzz\n"
         + "76\n"
         + "77\n"
         + "Fizz\n"
@@ -140,7 +152,8 @@ public class NumberUtilTest {
         + "Fizz\n"
         + "88\n"
         + "89\n"
-        + "FizzBuzz\n"
+        + "Fizz\n"
+        + "Buzz\n"
         + "91\n"
         + "92\n"
         + "Fizz\n"
